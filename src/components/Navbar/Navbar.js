@@ -24,8 +24,8 @@ const Navbar = () => {
                     {
                         user?.email ?
                             <li>
-                                <li className='font-semibold text-gray-700'>{user?.displayName}</li>
-                                <li><button onClick={handleLogOut} className="btn btn-outline-primary">Log Out</button></li>
+                                <p className='font-semibold text-gray-700'>{user?.displayName}</p>
+                                <><button onClick={handleLogOut} className="btn btn-outline-primary">Log Out</button></>
                             </li>
                             :
                             <li><Link to='/login'><button type="button" className="btn btn-outline-primary">Login</button>
