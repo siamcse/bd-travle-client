@@ -1,18 +1,40 @@
 import React, { createContext, useEffect, useState } from 'react';
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
+import app from '../firebase/firebase.config';
 
 export const AuthContext = createContext();
+const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
-    const user = { name: 'siam' }
-    const [hotels, setHotel] = useState([]);
+    const [user, setUser] = useState({});
+    const [loading, setLoading] = useState(true);
+
+    const createUser = (email, password) => {
+        setLoading(true);
+        return createUserWithEmailAndPassword(auth, email, password);
+    }
+    const signIn = (email, password) => {
+        setLoading(true);
+        return signInWithEmailAndPassword(auth, email, password);
+    }
+    const logOut = () =>{
+        setLoading(true);
+        return signOut(auth);
+    }
+    const profileUpdate = (profile) =>{
+        return updateProfile(auth.currentUser,profile);
+    }
 
     useEffect(() => {
-        fetch('http://localhost:5000/hotels')
-            .then(res => res.json())
-            .then(data => setHotel(data))
+        const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+            console.log('state chaged', currentUser);
+            setUser(currentUser);
+            setLoading(false);
+        })
+        return () => unSubscribe();
     }, [])
 
-    const authInfo = { user, hotels };
+    const authInfo = { user, loading, createUser, signIn, profileUpdate, logOut };
     return (
         <AuthContext.Provider value={authInfo}>
             {children}
