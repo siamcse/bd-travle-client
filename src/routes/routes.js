@@ -9,18 +9,18 @@ import PrivateRoutes from "./PrivateRoutes";
 
 export const routes = createBrowserRouter([
     {
-        path:'/',
-        element:<Main></Main>,
-        children:[
+        path: '/',
+        element: <Main></Main>,
+        children: [
             {
-                path:'/',
-                element:<Home></Home>,
-                loader: () => fetch('http://localhost:5000/hotels')
+                path: '/',
+                element: <Home></Home>,
+                loader: () => fetch('https://bd-travel-server-siamcse.vercel.app/hotels')
             },
             {
-                path:'/booking/:id',
-                element: <Booking/>,
-                loader: ({params}) => fetch(`http://localhost:5000/booking/${params.id}`)
+                path: '/booking/:id',
+                element: <Booking />,
+                loader: ({ params }) => fetch(`https://bd-travel-server-siamcse.vercel.app/booking/${params.id}`)
             },
             {
                 path: '/allhotel',
@@ -31,7 +31,7 @@ export const routes = createBrowserRouter([
                 element: <Login></Login>
             },
             {
-                path:'register',
+                path: 'register',
                 element: <Register></Register>
             }
         ]

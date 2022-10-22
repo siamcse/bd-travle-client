@@ -1,4 +1,6 @@
 import React from 'react';
+import { useLoaderData } from 'react-router-dom';
+import GoogleMap from '../GoogleMap/GoogleMap';
 
 const AllHotel = () => {
     return (
@@ -8,7 +10,9 @@ const AllHotel = () => {
                     <h2 className='text-3xl'>hotel is coming soon</h2>
                 </div>
                 <div>
-                    <h2 className='text-3xl'>Google Map is coming soon</h2>
+                    {
+                        <GoogleMap></GoogleMap>
+                    }
                 </div>
             </div>
         </div>
